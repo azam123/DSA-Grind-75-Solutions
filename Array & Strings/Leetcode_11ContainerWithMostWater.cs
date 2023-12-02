@@ -1,4 +1,4 @@
-//Leetcode : 11 https://leetcode.com/problems/container-with-most-water/
+//Leetcode : 11 https://leetcode.com/problems/container-with-most-water/   array, greedy, two pointers
 
 //Brute Force Approach:
 //Time Complexity: O(n^2) - The nested loops iterate through all possible pairs, resulting in quadratic time complexity.
