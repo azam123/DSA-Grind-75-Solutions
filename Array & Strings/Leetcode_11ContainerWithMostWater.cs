@@ -16,3 +16,33 @@ public int MaxAreaBruteForce(int[] height) {
 
     return maxArea;
 }
+
+
+//Optimized Approach:
+//Time Complexity: O(n) - The optimized approach uses a two-pointer technique and only iterates through the array once.
+
+//Space Complexity: O(1) - No additional data structures are used.
+
+public int MaxAreaOptimized(int[] height) {
+    int maxArea = 0;
+    int left = 0;
+    int right = height.Length - 1;
+
+    while (left < right) {
+        int currentHeight = Math.Min(height[left], height[right]);
+        int currentWidth = right - left;
+        int currentArea = currentHeight * currentWidth;
+
+        maxArea = Math.Max(maxArea, currentArea);
+
+        if (height[left] < height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+
+    return maxArea;
+}
+
+
