@@ -4,12 +4,14 @@
 //Space Complexity: O(m) - The space used by the targetCharCount dictionary, where m is the length of string t.
 public class Solution {
     public string MinWindow(string s, string t) {
-         Dictionary<char, int> targetCharCount = new Dictionary<char, int>();
-
+        //Hash Map for storing target char count
+        Dictionary<char, int> targetCharCount = new Dictionary<char, int>();
+//adding all characters from target string in HashMap with count of each character
     foreach (char c in t) {
         targetCharCount[c] = targetCharCount.ContainsKey(c) ? targetCharCount[c] + 1 : 1;
     }
 
+        
     int left = 0;
     int minLen = int.MaxValue;
     int minLenStart = 0;
