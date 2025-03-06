@@ -11,8 +11,9 @@ Return indices if found.
 O(N²) → Since we are using nested loops.
 **Space Complexity:**
 O(1) → No extra space used.
-**C# Brute Force**
 
+**C# Brute Force**
+ ```python
 public class Solution {
     public int[] TwoSum(int[] nums, int target) {
         for (int i = 0; i < nums.Length; i++) {
@@ -36,10 +37,12 @@ def two_sum(nums, target):
     return [-1, -1]  # No solution found
     
 **Optimized Approach (Using HashMap)**
+
 Explanation
 Store numbers in a hashmap (dictionary in Python).
 For each number, check if (target - num) exists in the hashmap.
 If found, return their indices.
+
 **Time Complexity:**
 O(N) → Single pass through the array.
 **Space Complexity:**
