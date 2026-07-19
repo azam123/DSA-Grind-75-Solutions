@@ -1,3 +1,12 @@
+
+/*DSA Used
+Data Structure: Array
+Algorithm: Dynamic Programming
+Pattern: Unbounded Knapsack / Complete Knapsack / 1D Dynamic Programming
+
+Interview Tip: LeetCode 322 is a classic Unbounded Knapsack problem because each coin denomination can be used an unlimited number of times. The bottom-up DP solution is the standard interview-preferred approach.*/
+
+
 using System;
 
 namespace LeetCode322_CoinChange
