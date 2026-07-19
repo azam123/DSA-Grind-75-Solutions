@@ -2,6 +2,29 @@ using System;
 
 namespace LeetCode53_MaximumSubarray
 {
+    /**********************************************************************
+     *
+     * LeetCode 53 - Maximum Subarray
+     *
+     * Problem Statement
+     * -----------------
+     * Given an integer array nums, find the contiguous subarray
+     * (containing at least one number) which has the largest sum,
+     * and return its sum.
+     *
+     * Example
+     * -------
+     * Input:
+     * nums = [-2,1,-3,4,-1,2,1,-5,4]
+     *
+     * Output:
+     * 6
+     *
+     * Explanation:
+     * The subarray [4,-1,2,1] has the maximum sum = 6.
+     *
+     **********************************************************************/
+
     class Program
     {
         static void Main(string[] args)
@@ -10,60 +33,61 @@ namespace LeetCode53_MaximumSubarray
 
             Solution solution = new Solution();
 
-            Console.WriteLine("===== LeetCode 53 - Maximum Subarray =====\n");
+            Console.WriteLine("===== LeetCode 53 : Maximum Subarray =====\n");
 
-            Console.WriteLine("Input:");
+            Console.WriteLine("Input Array");
             Console.WriteLine($"[{string.Join(", ", nums)}]\n");
 
-            // Brute Force
-            int bruteForceResult = solution.MaxSubArrayBruteForce(nums);
-            Console.WriteLine($"Brute Force Result : {bruteForceResult}");
+            Console.WriteLine("Brute Force Answer");
+            Console.WriteLine(solution.MaxSubArrayBruteForce(nums));
 
-            // Optimized
-            int optimizedResult = solution.MaxSubArrayKadane(nums);
-            Console.WriteLine($"Kadane's Algorithm Result : {optimizedResult}");
+            Console.WriteLine();
+
+            Console.WriteLine("Kadane's Algorithm Answer");
+            Console.WriteLine(solution.MaxSubArrayOptimized(nums));
+
+            Console.WriteLine();
+
+            solution.DryRun(nums);
         }
     }
 
     public class Solution
     {
-        /**********************************************************************
-         * BRUTE FORCE APPROACH
+        /******************************************************************
          *
-         * Idea:
-         * -----
+         * APPROACH 1 : BRUTE FORCE
+         *
+         * Idea
+         * ----
          * Generate every possible subarray.
-         * Calculate the sum of each subarray.
+         *
+         * Calculate its sum.
+         *
          * Keep track of the maximum sum.
          *
-         * Time Complexity:
+         * Time Complexity
          * ----------------
-         * Outer Loop  -> O(N)
-         * Inner Loop  -> O(N)
+         * O(N²)
          *
-         * Total = O(N²)
-         *
-         * Space Complexity:
+         * Space Complexity
          * -----------------
-         * No extra data structure is used.
-         *
          * O(1)
-         *********************************************************************/
+         *
+         ******************************************************************/
+
         public int MaxSubArrayBruteForce(int[] nums)
         {
             int maxSum = int.MinValue;
 
-            // Choose every possible starting index.
             for (int start = 0; start < nums.Length; start++)
             {
                 int currentSum = 0;
 
-                // Extend the subarray one element at a time.
                 for (int end = start; end < nums.Length; end++)
                 {
                     currentSum += nums[end];
 
-                    // Update maximum sum found so far.
                     maxSum = Math.Max(maxSum, currentSum);
                 }
             }
@@ -71,63 +95,113 @@ namespace LeetCode53_MaximumSubarray
             return maxSum;
         }
 
-        /**********************************************************************
-         * OPTIMIZED APPROACH (Kadane's Algorithm)
+        /******************************************************************
          *
-         * Idea:
-         * -----
-         * If the running sum becomes negative,
-         * discard it and start a new subarray.
+         * APPROACH 2 : KADANE'S ALGORITHM (OPTIMIZED)
          *
-         * At every element:
+         * Idea
+         * ----
+         * If the current running sum becomes negative,
+         * discard it because it can never increase the
+         * sum of any future subarray.
+         *
+         * At every element we decide:
+         *
+         * 1. Start a new subarray.
+         *
+         * OR
+         *
+         * 2. Extend the previous subarray.
+         *
+         * Formula
+         * -------
          *
          * currentSum =
-         *      Maximum of
-         *      1. Current element only
-         *      2. Previous subarray + Current element
+         * Max(current element,
+         * currentSum + current element)
          *
-         * maxSum stores the best answer seen so far.
+         * maxSum =
+         * Max(maxSum,currentSum)
          *
-         * Time Complexity:
+         * Time Complexity
          * ----------------
-         * Single traversal of the array.
-         *
          * O(N)
          *
-         * Space Complexity:
+         * Space Complexity
          * -----------------
-         * Only two integer variables are used.
-         *
          * O(1)
-         *********************************************************************/
-        public int MaxSubArrayKadane(int[] nums)
+         *
+         ******************************************************************/
+
+        public int MaxSubArrayOptimized(int[] nums)
         {
             int currentSum = nums[0];
             int maxSum = nums[0];
 
-            // Start from the second element.
             for (int i = 1; i < nums.Length; i++)
             {
-                /*
-                 * Two choices:
-                 *
-                 * 1. Start a new subarray from nums[i]
-                 *
-                 *      nums[i]
-                 *
-                 * 2. Extend the previous subarray
-                 *
-                 *      currentSum + nums[i]
-                 *
-                 * Choose whichever gives a larger sum.
-                 */
                 currentSum = Math.Max(nums[i], currentSum + nums[i]);
 
-                // Update the overall maximum sum.
                 maxSum = Math.Max(maxSum, currentSum);
             }
 
             return maxSum;
+        }
+
+        /******************************************************************
+         *
+         * DRY RUN
+         *
+         * Input
+         * -----
+         * [-2,1,-3,4,-1,2,1,-5,4]
+         *
+         * Step
+         * ----
+         *
+         * Number   CurrentSum   MaxSum
+         * -----------------------------
+         * -2         -2          -2
+         * 1           1           1
+         * -3         -2           1
+         * 4           4           4
+         * -1          3           4
+         * 2           5           5
+         * 1           6           6
+         * -5          1           6
+         * 4           5           6
+         *
+         * Final Answer = 6
+         *
+         * Maximum Subarray
+         *
+         * [4,-1,2,1]
+         *
+         ******************************************************************/
+
+        public void DryRun(int[] nums)
+        {
+            Console.WriteLine("========== Dry Run ==========\n");
+
+            int currentSum = nums[0];
+            int maxSum = nums[0];
+
+            Console.WriteLine("Number\tCurrentSum\tMaxSum");
+
+            Console.WriteLine($"{nums[0]}\t{currentSum}\t\t{maxSum}");
+
+            for (int i = 1; i < nums.Length; i++)
+            {
+                currentSum = Math.Max(nums[i], currentSum + nums[i]);
+
+                maxSum = Math.Max(maxSum, currentSum);
+
+                Console.WriteLine($"{nums[i]}\t{currentSum}\t\t{maxSum}");
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine($"Maximum Subarray Sum = {maxSum}");
         }
     }
 }
