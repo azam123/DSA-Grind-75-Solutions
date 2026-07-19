@@ -1,5 +1,101 @@
 using System;
+/**********************************************************************
 
+Complexity Summary
+
+Approach                        Time            Space
+---------------------------------------------------------
+Brute Force (Recursion)         O(2^N)          O(N)
+Memoization (Top-Down DP)       O(N)            O(N)
+Bottom-Up DP                    O(N)            O(N)
+Space Optimized DP              O(N)            O(1)
+
+**********************************************************************/
+
+/**********************************************************************
+
+DSA Used
+
+Data Structure:
+---------------
+Array (Memoization / DP Table)
+
+Algorithm:
+----------
+Dynamic Programming
+
+Pattern:
+--------
+Fibonacci Pattern
+1D Dynamic Programming
+State Transition
+
+**********************************************************************/
+
+/**********************************************************************
+
+Interview Tip
+
+LeetCode 70 is one of the most fundamental Dynamic Programming
+problems.
+
+The key observation is that to reach stair 'n', you can only come from:
+
+1. Stair (n-1)
+2. Stair (n-2)
+
+Therefore,
+
+Ways(n) = Ways(n-1) + Ways(n-2)
+
+This is exactly the Fibonacci sequence.
+
+Interviewers usually expect you to explain the progression:
+
+1. Brute Force Recursion
+2. Memoization (Top-Down DP)
+3. Bottom-Up DP
+4. Space Optimized DP (Preferred)
+
+The Space Optimized solution is the most efficient because it only
+stores the previous two values instead of the entire DP array.
+
+**********************************************************************/
+
+/**********************************************************************
+
+Related Problems
+
+Easy
+-----
+• LeetCode 509 - Fibonacci Number
+• LeetCode 746 - Min Cost Climbing Stairs
+
+Medium
+-------
+• LeetCode 198 - House Robber
+• LeetCode 213 - House Robber II
+• LeetCode 91 - Decode Ways
+• LeetCode 62 - Unique Paths
+• LeetCode 63 - Unique Paths II
+
+Hard
+-----
+• LeetCode 552 - Student Attendance Record II
+
+**********************************************************************/
+
+/**********************************************************************
+
+Key Takeaways
+
+✓ Learn to identify overlapping subproblems.
+✓ Convert recursion into memoization.
+✓ Convert memoization into bottom-up DP.
+✓ Optimize DP space whenever only previous states are needed.
+✓ Recognize Fibonacci-like recurrence relations.
+
+**********************************************************************/
 namespace LeetCode70_ClimbingStairs
 {
     class Program
